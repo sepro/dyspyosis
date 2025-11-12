@@ -59,7 +59,7 @@ def get_latent(encoder, data):
 
 def get_loss(autoencoder, data):
     predicted = autoencoder.predict(data)
-    loss_function = losses.MeanSquaredError(reduction='none')
+    loss_function = losses.MeanSquaredError(reduction="none")
 
     output = [loss_function(a, b).numpy() for a, b in zip(predicted, data)]
 
