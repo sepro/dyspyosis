@@ -42,14 +42,14 @@ def test_example_integration(data_dir):
     reference_loss = pd.read_csv(data_dir / "loss_out.tsv", sep=",")
 
     # Verify shapes match
-    assert (
-        loss.shape == reference_loss.shape
-    ), f"Loss shape mismatch: {loss.shape} vs {reference_loss.shape}"
+    assert loss.shape == reference_loss.shape, (
+        f"Loss shape mismatch: {loss.shape} vs {reference_loss.shape}"
+    )
 
     # Verify column names match
-    assert list(loss.columns) == list(
-        reference_loss.columns
-    ), f"Loss columns mismatch: {loss.columns} vs {reference_loss.columns}"
+    assert list(loss.columns) == list(reference_loss.columns), (
+        f"Loss columns mismatch: {loss.columns} vs {reference_loss.columns}"
+    )
 
     # Compare loss values with tolerance
     # Using a relatively high tolerance since:
@@ -71,10 +71,10 @@ def test_example_integration(data_dir):
 
     # If not close, provide detailed diagnostics
     if not loss_close:
-        print(f"\nLoss comparison details:")
+        print("\nLoss comparison details:")
         print(f"  Max difference: {max_loss_diff:.6f}")
         print(f"  Mean difference: {mean_loss_diff:.6f}")
-        print(f"  Sample of differences:")
+        print("  Sample of differences:")
         for i in range(min(5, len(loss_diff))):
             print(
                 f"    Sample {i}: new={loss['loss'].values[i]:.6f}, "
@@ -87,5 +87,5 @@ def test_example_integration(data_dir):
         f"Max diff: {max_loss_diff:.6f}, Mean diff: {mean_loss_diff:.6f}"
     )
 
-    print(f"\n✓ Integration test passed!")
+    print("\n✓ Integration test passed!")
     print(f"  Loss - Max diff: {max_loss_diff:.6f}, Mean diff: {mean_loss_diff:.6f}")
