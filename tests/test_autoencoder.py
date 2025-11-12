@@ -62,4 +62,6 @@ def test_get_loss():
     # Sample 0: MSE([0.5, 0.5], [0, 0]) = mean((0.5-0)^2 + (0.5-0)^2) = mean(0.25 + 0.25) = 0.25
     # Sample 1: MSE([0.5, 0.5], [1, 1]) = mean((0.5-1)^2 + (0.5-1)^2) = mean(0.25 + 0.25) = 0.25
     expected = [0.25, 0.25]
-    assert np.allclose(losses_output, expected), f"Expected {expected}, got {losses_output}"
+    assert np.allclose(
+        losses_output, expected
+    ), f"Expected {expected}, got {losses_output}"
