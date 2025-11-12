@@ -1,7 +1,7 @@
 import numpy as np
 from unittest.mock import MagicMock
-from keras import backend as K
-from keras import models
+from tensorflow.keras import backend as K
+from tensorflow.keras import models
 
 # Assuming create_autoencoder was defined in a module called autoencoder_module
 from dyspyosis.autoencoder import create_autoencoder, get_loss
