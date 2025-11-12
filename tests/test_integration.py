@@ -27,7 +27,7 @@ def test_example_integration(data_dir):
         labels=df.index.tolist(),
         rarefication_depth=5000,
         rarefication_count=10,
-        encode_dim=4
+        encode_dim=4,
     )
 
     # Run training with same parameters as example
@@ -44,20 +44,20 @@ def test_example_integration(data_dir):
     reference_latent = pd.read_csv(data_dir / "latent_out.tsv", sep=",")
 
     # Verify shapes match
-    assert loss.shape == reference_loss.shape, (
-        f"Loss shape mismatch: {loss.shape} vs {reference_loss.shape}"
-    )
-    assert latent.shape == reference_latent.shape, (
-        f"Latent shape mismatch: {latent.shape} vs {reference_latent.shape}"
-    )
+    assert (
+        loss.shape == reference_loss.shape
+    ), f"Loss shape mismatch: {loss.shape} vs {reference_loss.shape}"
+    assert (
+        latent.shape == reference_latent.shape
+    ), f"Latent shape mismatch: {latent.shape} vs {reference_latent.shape}"
 
     # Verify column names match
-    assert list(loss.columns) == list(reference_loss.columns), (
-        f"Loss columns mismatch: {loss.columns} vs {reference_loss.columns}"
-    )
-    assert list(latent.columns) == list(reference_latent.columns), (
-        f"Latent columns mismatch: {latent.columns} vs {reference_latent.columns}"
-    )
+    assert list(loss.columns) == list(
+        reference_loss.columns
+    ), f"Loss columns mismatch: {loss.columns} vs {reference_loss.columns}"
+    assert list(latent.columns) == list(
+        reference_latent.columns
+    ), f"Latent columns mismatch: {latent.columns} vs {reference_latent.columns}"
 
     # Compare loss values with tolerance
     # Using a relatively high tolerance since:
@@ -74,10 +74,7 @@ def test_example_integration(data_dir):
     atol = 0.01  # Absolute tolerance
 
     loss_close = np.allclose(
-        loss["loss"].values,
-        reference_loss["loss"].values,
-        rtol=rtol,
-        atol=atol
+        loss["loss"].values, reference_loss["loss"].values, rtol=rtol, atol=atol
     )
 
     # If not close, provide detailed diagnostics
@@ -87,9 +84,11 @@ def test_example_integration(data_dir):
         print(f"  Mean difference: {mean_loss_diff:.6f}")
         print(f"  Sample of differences:")
         for i in range(min(5, len(loss_diff))):
-            print(f"    Sample {i}: new={loss['loss'].values[i]:.6f}, "
-                  f"ref={reference_loss['loss'].values[i]:.6f}, "
-                  f"diff={loss_diff[i]:.6f}")
+            print(
+                f"    Sample {i}: new={loss['loss'].values[i]:.6f}, "
+                f"ref={reference_loss['loss'].values[i]:.6f}, "
+                f"diff={loss_diff[i]:.6f}"
+            )
 
     assert loss_close, (
         f"Loss values differ too much from reference. "
@@ -108,7 +107,7 @@ def test_example_integration(data_dir):
         latent[latent_cols].values,
         reference_latent[latent_cols].values,
         rtol=rtol,
-        atol=atol
+        atol=atol,
     )
 
     # If not close, provide detailed diagnostics
@@ -124,4 +123,6 @@ def test_example_integration(data_dir):
 
     print(f"\n✓ Integration test passed!")
     print(f"  Loss - Max diff: {max_loss_diff:.6f}, Mean diff: {mean_loss_diff:.6f}")
-    print(f"  Latent - Max diff: {max_latent_diff:.6f}, Mean diff: {mean_latent_diff:.6f}")
+    print(
+        f"  Latent - Max diff: {max_latent_diff:.6f}, Mean diff: {mean_latent_diff:.6f}"
+    )
