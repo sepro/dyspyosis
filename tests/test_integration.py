@@ -60,10 +60,10 @@ def test_example_integration(data_dir):
     max_loss_diff = np.max(loss_diff)
     mean_loss_diff = np.mean(loss_diff)
 
-    # Loss values should be reasonably close (within 50% relative tolerance or 0.01 absolute)
+    # Loss values should be reasonably close (within 50% relative tolerance or 0.001 absolute)
     # This is lenient to account for Keras 2 -> Keras 3 differences
     rtol = 0.5  # 50% relative tolerance
-    atol = 0.01  # Absolute tolerance
+    atol = 0.001  # Absolute tolerance of 0.001 (reasonable for loss values ~0.002-0.01)
 
     loss_close = np.allclose(
         loss["loss"].values, reference_loss["loss"].values, rtol=rtol, atol=atol
