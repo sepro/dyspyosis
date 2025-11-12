@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 import time
 
 CPU_EPOCHS = 100
